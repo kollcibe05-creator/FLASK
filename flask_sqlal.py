@@ -14,5 +14,3 @@ class Pet(db.Model):
     name = db.Column(db.String(20), unique=True, index=True)
     species = db.Column(db.String, nullable=False)
     # verified = db.Column(db.Boolean, default=False) # for demo on constraints
- 
-

@@ -13,6 +13,7 @@ faker = "*"
 alembic = "*"
 sqlalchemy-serializer = "*"
 requests = "*"
+flask-cors = "*"
 
 [dev-packages]
 

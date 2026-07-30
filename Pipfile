@@ -12,6 +12,7 @@ sqlalchemy = "*"
 faker = "*"
 alembic = "*"
 sqlalchemy-serializer = "*"
+requests = "*"
 
 [dev-packages]
 

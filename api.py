@@ -2,6 +2,7 @@ from flask import make_response, jsonify, Flask
 from flask_migrate import Migrate
 from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.exceptions import NotFound 
 
 from models import db, User, Review, Game
 
@@ -14,6 +15,17 @@ app.json.compact = False
 migrate = Migrate(app, db)
 
 db.init_app(app)
+
+# Works neatly with flask_restful
+@app.errorhandler(NotFound)
+def handle_not_found(e):
+    response = make_response(
+        "Not Found": "The requested resource does not exist", 
+        404
+    )
+    return response
+
+app.register_error_handler(404, handle_not_found)
 
 @app.route('/')
 def index():

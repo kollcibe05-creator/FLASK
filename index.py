@@ -12,3 +12,6 @@ print('name is collo'.upper())
 print('name is collo'.capitalize())
 
 print('name'.startswith('n'))
+
+name = input('Enter your name: ')
+print(name)

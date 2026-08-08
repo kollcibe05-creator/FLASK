@@ -13,5 +13,6 @@ print('name is collo'.capitalize())
 
 print('name'.startswith('n'))
 
-name = input('Enter your name: ')
+name = input('Input your name: ')
 print(name)
+

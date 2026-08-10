@@ -1,34 +1,31 @@
-from turtle import ht
 from bs4 import BeautifulSoup
-import requests
+import ipdb
+# The html file can be open with the options + Live Server or with the command `open fixtures/kickstarter.html`
+projects: kickstarter.select("li.project.grid_4")[0]
+title: project.select("h2.bbcard_name strong a")[0].text # chaining a select method to access the nested nodes
+image link: project.select("div.project-thumbnail a img")[0]['src'] # sourcing src attrib # tag['attrib'] # Treat the tag like a dictionary 
+description: project.select("p.bbcard_blurb")[0].text
+location: project.select("ul.project-meta span.location-name")[0].text
+percent_funded: project.select("ul.project-stats li.first.funded strong")[0].text.replace("%","") # If we may want to do some math
 
-headers = {'user-agent': 'my-app/0.0.1'}
-html = requests.get("https://flatironschool.com/", headers=headers)
+def create_project_dict():
+    html = ''
+    with open('./fixtures/kickstarter.html') as file:
+        html = file.read()
+    kickstarter = BeautifulSoup(html, 'html.parser')
+    projects = {}
+    # Iterate through the projects
+    for project in kickstarter.select("li.project.grid_4"):
+        title = project.select("h2.bbcard_name strong a")[0].text
+        projects[title] = {
+        'image_link': project.select("div.project-thumbnail a img")[0]["src"],
+        'description': project.select("p.bbcard_blurb")[0].text,
+        'location': project.select("ul.project-meta span.location-name")[0].text,
+        'percent_funded': project.select("ul.project-stats li.first.funded strong")[0].text.replace("%","")
+        }
+    # return the projects dictionary
 
-# html_ = requests.get("https://google.com")
-# print(html_.text)
+    return projects
 
-# Types of Python objects pertinent to BeautifulSoup
-# Tag, NavigableString, BeautifulSoup, Comment, ResultSet
-
-# 403, means Forbidden. The site may be trying to prevent bots. That is why you have to include the headers with `user-agent`
-html_ = requests.get('https://flatironschool.com/', headers=headers)
-print(html_)
-
-doc = BeautifulSoup(html_.text, 'html.parser')
-print(doc)
-
-print(doc.select(".header")[0].contents)
-print(doc.select('.header')[0].contents.strip())
-print(doc.select('.header')[0].text)
-
-
-# working with bs4.element.Tag
-print(doc.select(".display-2.mt-6.text-brand-blue")[0].name) # literal name tag # => h2
-print(doc.select(".display-2.mt-6.text-brand-blue")[0].attrs) # returns ids, names, classes and other useful content like alt and src for images
-print(doc.select(".display-2.mt-6.text-brand-blue")[0].children) # returns ids, names, classes and other useful content like alt and src for images
-
-print(doc.select(".display-2.mt-6.text-brand-blue")[0].select('span')[0].text)
-
-print(doc.select(".display-2.mt-6.text-brand-blue")[0].select('span')[0].contents[0].strip())
-# note that there is no space in the class name. `.` are used instead
+projects = create_project_dict()
+print(projects)

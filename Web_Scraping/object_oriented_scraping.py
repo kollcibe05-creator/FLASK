@@ -12,7 +12,7 @@ class Scraper:
             requests.get('http://learn-co-curriculum.github.io/site-for-scraping/courses').text, 
             'html.parser'
         )
-        # ipdb.set_trace() # try prompting doc.content, doc.text...
+        # ipdb.set_trace() # try prompting doc.contents, doc.text...
         # return doc
         # print(doc.select('.post')) # the <articles> of each course # returns a list of their tags with all the info.
         # print(doc.select('.post')[0]) # to inspect course details

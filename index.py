@@ -15,4 +15,7 @@ print('name'.startswith('n'))
 
 name = input('Input your name: ')
 print(name)
+from faker import Faker
+fake = Faker()
 
+print(fake.catch_phrase())

@@ -22,15 +22,31 @@ print(fake.catch_phrase())
 print(fake.sentence())
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-
+from flask.ext.hybrid import hybrid_property
 metadata = MetaData(
     naming_convention = {}
 )
 db = SQLAlchemy(metadata=metadata)
 
+
 class Magazine(db.metadata):
     def __init__(self, name):
-        self.name = name
+        id = db.Column(db.Integer, primary_key=True, unique=True)
+        _password_hash = db.Column(db.String, nullable=False)
+
+    @hybrid_property
+    def password_hash(self):
+        return self._password_hash
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(
+            password.encode('utf-8')
+        )
+        self._password_hash = password_hash.decode('utf-8')
+    def authenticate(self, password):
+        bcrypt.check_password_hash(
+            self.password_hash, password.encode('utf-8')
+        )
 
 from flask_restful import Api, Resource
 
@@ -48,3 +64,5 @@ db.init_app(app)
 
 api = Api(app)
 bcrypt = Bcrypt(app)
+
+from app import bcrypt

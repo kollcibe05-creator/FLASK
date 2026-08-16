@@ -48,6 +48,16 @@ class Magazine(db.metadata):
             self.password_hash, password.encode('utf-8')
         )
 
+
+    @password_hash.setter
+    def password_hash(self, password):
+        self._password_hash = self.simple_hash(password)
+
+    def authenticate(self, password):
+        return self.simple_hash == self.simple_hash(password)
+    @staticmethod
+    def simple_hash(input):
+       return str(bytearray(input, encoding='utf-8')) 
 from flask_restful import Api, Resource
 
 from flask import Flask, make_response

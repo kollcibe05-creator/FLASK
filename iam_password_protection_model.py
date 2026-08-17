@@ -81,3 +81,4 @@ class User(db.Model, SerializerMixin):
             self._password_hash, password.encode('utf-8')
         )
 
+print(str(11))

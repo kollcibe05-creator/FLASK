@@ -76,3 +76,8 @@ api = Api(app)
 bcrypt = Bcrypt(app)
 
 from app import bcrypt
+
+import sqlite3
+
+CONN = sqlite3.connect('app.db')
+CURSOR = CONN.cursor()

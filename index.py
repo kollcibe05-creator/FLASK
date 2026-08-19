@@ -81,3 +81,7 @@ import sqlite3
 
 CONN = sqlite3.connect('app.db')
 CURSOR = CONN.cursor()
+
+arr = [("name", 'Anna'), ('alice', 'Zedd'), ('bakari', 'Mona'), ('mina', 'Nina')]
+print(sorted(arr))
+print(sorted(arr, key=lambda n: n[1]))

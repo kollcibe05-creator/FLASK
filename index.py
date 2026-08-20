@@ -1,87 +1,96 @@
-list_ = ["Collo", "Collo", "Mark", "Collo", "Lucy", "Collo", "Mark"]
+# list_ = ["Collo", "Collo", "Mark", "Collo", "Lucy", "Collo", "Mark"]
 
-record_dict = {}
+# record_dict = {}
 
-for name in list_:
-    record_dict[name] = record_dict.get(name, 0) + 1
+# for name in list_:
+#     record_dict[name] = record_dict.get(name, 0) + 1
 
-# print(record_dict)
+# # print(record_dict)
 
-print('name is collo'.title())
-print('name is collo'.upper())
-print('name is collo'.capitalize())
+# print('name is collo'.title())
+# print('name is collo'.upper())
+# print('name is collo'.capitalize())
 
-print('name'.startswith('n'))
+# print('name'.startswith('n'))
 
-name = input('Input your name: ')
-print(name)
-from faker import Faker
-fake = Faker()
+# name = input('Input your name: ')
+# print(name)
+# from faker import Faker
+# fake = Faker()
 
-print(fake.catch_phrase())
-print(fake.sentence())
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import MetaData
-from flask.ext.hybrid import hybrid_property
-metadata = MetaData(
-    naming_convention = {}
-)
-db = SQLAlchemy(metadata=metadata)
-
-
-class Magazine(db.metadata):
-    def __init__(self, name):
-        id = db.Column(db.Integer, primary_key=True, unique=True)
-        _password_hash = db.Column(db.String, nullable=False)
-
-    @hybrid_property
-    def password_hash(self):
-        return self._password_hash
-    @password_hash.setter
-    def password_hash(self, password):
-        password_hash = bcrypt.generate_password_hash(
-            password.encode('utf-8')
-        )
-        self._password_hash = password_hash.decode('utf-8')
-    def authenticate(self, password):
-        bcrypt.check_password_hash(
-            self.password_hash, password.encode('utf-8')
-        )
+# print(fake.catch_phrase())
+# print(fake.sentence())
+# from flask_sqlalchemy import SQLAlchemy
+# from sqlalchemy import MetaData
+# from flask.ext.hybrid import hybrid_property
+# metadata = MetaData(
+#     naming_convention = {}
+# )
+# db = SQLAlchemy(metadata=metadata)
 
 
-    @password_hash.setter
-    def password_hash(self, password):
-        self._password_hash = self.simple_hash(password)
+# class Magazine(db.metadata):
+#     def __init__(self, name):
+#         id = db.Column(db.Integer, primary_key=True, unique=True)
+#         _password_hash = db.Column(db.String, nullable=False)
 
-    def authenticate(self, password):
-        return self.simple_hash == self.simple_hash(password)
-    @staticmethod
-    def simple_hash(input):
-       return str(bytearray(input, encoding='utf-8')) 
-from flask_restful import Api, Resource
+#     @hybrid_property
+#     def password_hash(self):
+#         return self._password_hash
+#     @password_hash.setter
+#     def password_hash(self, password):
+#         password_hash = bcrypt.generate_password_hash(
+#             password.encode('utf-8')
+#         )
+#         self._password_hash = password_hash.decode('utf-8')
+#     def authenticate(self, password):
+#         bcrypt.check_password_hash(
+#             self.password_hash, password.encode('utf-8')
+#         )
 
-from flask import Flask, make_response
-from flask_bcrypt import Bcrypt
-from flask_migrate import Migrate
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///magazines.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
-migrate = Migrate(app, db)
+#     @password_hash.setter
+#     def password_hash(self, password):
+#         self._password_hash = self.simple_hash(password)
 
-db.init_app(app)
+#     def authenticate(self, password):
+#         return self.simple_hash == self.simple_hash(password)
+#     @staticmethod
+#     def simple_hash(input):
+#        return str(bytearray(input, encoding='utf-8')) 
+# from flask_restful import Api, Resource
 
-api = Api(app)
-bcrypt = Bcrypt(app)
+# from flask import Flask, make_response
+# from flask_bcrypt import Bcrypt
+# from flask_migrate import Migrate
 
-from app import bcrypt
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///magazines.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.json.compact = False
+# migrate = Migrate(app, db)
 
-import sqlite3
+# db.init_app(app)
 
-CONN = sqlite3.connect('app.db')
-CURSOR = CONN.cursor()
+# api = Api(app)
+# bcrypt = Bcrypt(app)
 
-arr = [("name", 'Anna'), ('alice', 'Zedd'), ('bakari', 'Mona'), ('mina', 'Nina')]
-print(sorted(arr))
-print(sorted(arr, key=lambda n: n[1]))
+# from app import bcrypt
+
+# import sqlite3
+
+# CONN = sqlite3.connect('app.db')
+# CURSOR = CONN.cursor()
+
+# arr = [("name", 'Anna'), ('alice', 'Zedd'), ('bakari', 'Mona'), ('mina', 'Nina')]
+# print(sorted(arr))
+# print(sorted(arr, key=lambda n: n[1]))
+
+word = 'hello'
+for letter in word:
+    print(letter)
+
+sentence = 'It is certainly a heavy moment for us all. A man lived who lived for every boy/girl being taken before our very eyes, isn\'t the world cruel'
+edited_sentence = sentence.replace('.', '').replace('?', '').replace('/', ' ')
+arr_ = edited_sentence.split()
+print(arr_)

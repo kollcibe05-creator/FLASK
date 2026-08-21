@@ -94,3 +94,5 @@ sentence = 'It is certainly a heavy moment for us all. A man lived who lived for
 edited_sentence = sentence.replace('.', '').replace('?', '').replace('/', ' ')
 arr_ = edited_sentence.split()
 print(arr_)
+print('Collo'.startswith('C'))
+print('Counterintuitive'.find('i'))
